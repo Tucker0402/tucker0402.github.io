@@ -111,3 +111,28 @@ todos.map(todo => {
         li.textContent = todo.text
         tdlist.append(li)
     })
+
+// POKEMON API STUFF
+
+;(async () => {
+
+const getRandomPokemon = async() => {
+    const url = 'https://pokeapi.co/api/v2/pokemon/' + Math.floor(Math.random() * 1025)
+    const result = await fetch(url)
+    const pokemon = await result.json()
+    return pokemon
+}
+
+const renderPokemon = async() => {
+    var pokemon = await getRandomPokemon()
+    const img = document.createElement('img')
+    img.src = pokemon.sprites.front_default
+    img.alt = pokemon.name
+    document.querySelector('#pokemon').innerHTML = ''
+    const pokemonDiv = document.getElementById('pokemon')
+    await pokemonDiv.append(img)
+}
+
+await renderPokemon()
+
+})()
